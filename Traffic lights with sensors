@@ -1,0 +1,33 @@
+#include "mbed.h"
+DigitalIn SW0(A0); 
+DigitalIn SW1(A1); 
+DigitalOut myLEDs[] =  { (D2),(D3),(D4),(D5),(D6),(D7) }; 
+
+int main() { 
+    SW0.mode(PullUp);
+    SW1.mode(PullUp);
+    while(1) {
+
+        myLEDs[2] = 1; myLEDs[3] = 1; //r2+g1 for 3 seconds
+        while(SW1);
+        wait(3.0);
+        myLEDs[2] = 0; myLEDs[3] = 1; myLEDs[1] = 1; //a1+r2 for 1 second
+        wait(1.0);
+        myLEDs[1] = 0; myLEDs[3] = 1; myLEDs[0] = 1; //r1+r2 for 1 second
+        wait(1.0);
+        myLEDs[0] = 1; myLEDs[3] = 1; myLEDs[4] = 1; //r1+r2+a2 for 1 second
+        wait(1.0);
+        myLEDs[0] = 1; myLEDs[3] = 0; myLEDs[4] = 0; myLEDs[5] = 1; //r1+g2 for 3 seconds
+        while(SW0);
+        wait(3.0);
+        myLEDs[0] = 1; myLEDs[4] = 1; myLEDs[5] = 0; //r1+a2 for 1 seconds
+        wait(1.0);
+        myLEDs[0] = 1; myLEDs[4] = 0; myLEDs[3] = 1; //r1+r2 for 1 seconds
+        wait(1.0);
+        myLEDs[0] = 1; myLEDs[1] = 1; myLEDs[3] = 1; //r1+r2+a1 for 1 seconds
+        wait(1.0);
+        myLEDs[0] = 0; myLEDs[1] = 0; myLEDs[3] = 1; myLEDs[2] = 1; //r2+g1 for 1 seconds
+        wait(1.0);
+          
+    }
+}
