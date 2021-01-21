@@ -1,0 +1,21 @@
+#include "mbed.h"
+
+PwmOut Buzzer(D3);
+//Frequency array
+float frequency[] = {262,262,392,392,440,440,392,349,349,330,330,294,294,262};
+//beat array
+float beat[]={1,1,1,1,1,1,2,1,1,1,1,1,1,2};
+
+int main() {
+    for(int i=0; i<= 13;i++) {
+        //set PWM period - use half frequency to get right sound
+        Buzzer.period((float)1.0/(2*frequency[i]));
+        //sets duty cycle
+        Buzzer = 0.5; 
+        //hold for beat period
+        wait((float)0.4*beat[i]);
+    }
+    Buzzer = 0; //turn buzzer off
+    while(1);   //hold code here
+    wait(0.5);  //wait so each note is clearer
+}
